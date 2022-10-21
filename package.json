@@ -1,0 +1,9 @@
+{
+  "name": "mycontacts",
+  "version": "1.0.0",
+  "description": "A app to manage contacts",
+  "main": "index.js",
+  "repository": "https://github.com/i4n-v/mycontacts",
+  "author": "Ian Vinícius",
+  "license": "MIT"
+}
