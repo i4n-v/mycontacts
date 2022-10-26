@@ -4,12 +4,21 @@ class ContactController {
   // Lista todos os registros
   async index(request, response) {
     const contacts = await ContactsRepository.findAll();
+
     response.json(contacts);
   }
 
   // Obter um registro
-  show() {
+  async show(request, response) {
+    const { id } = request.params;
 
+    const contact = await ContactsRepository.findById(id);
+
+    if (!contact) {
+      return response.status(404).json({ error: 'Contact not found' });
+    }
+
+    response.json(contact);
   }
 
   // Criar um novo registro
@@ -23,8 +32,18 @@ class ContactController {
   }
 
   // Deletar um registro
-  delete() {
+  async delete(request, response) {
+    const { id } = request.params;
 
+    const contact = await ContactsRepository.findById(id);
+
+    if (!contact) {
+      return response.status(404).json({ error: 'Contact not found' });
+    }
+
+    await ContactsRepository.delete(id);
+
+    response.sendStatus(204);
   }
 }
 
