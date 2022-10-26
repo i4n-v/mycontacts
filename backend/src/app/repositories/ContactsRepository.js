@@ -51,12 +51,31 @@ class ContactsRepository {
     });
   }
 
+  findByEmail(email) {
+    return new Promise((resolve) => {
+      resolve(contacts.find((contact) => contact.email === email));
+    });
+  }
+
   delete(id) {
     return new Promise((resolve) => {
       const index = contacts.findIndex((contact) => contact.id === id);
       contacts.splice(index, 1);
 
       resolve();
+    });
+  }
+
+  create(data) {
+    return new Promise((resolve) => {
+      const newContact = {
+        id: v4(),
+        ...data,
+      };
+
+      contacts.push(newContact);
+
+      resolve(newContact);
     });
   }
 }
