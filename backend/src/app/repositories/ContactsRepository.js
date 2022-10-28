@@ -78,6 +78,21 @@ class ContactsRepository {
       resolve(newContact);
     });
   }
+
+  update(id, {
+    name, email, phone, category_id,
+  }) {
+    return new Promise((resolve) => {
+      const updatedContact = {
+        id, name, email, phone, category_id,
+      };
+
+      const index = contacts.findIndex((contact) => contact.id === id);
+      contacts[index] = updatedContact;
+
+      resolve(updatedContact);
+    });
+  }
 }
 
 module.exports = new ContactsRepository();
