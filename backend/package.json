@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "API to store contacts",
   "main": "src/index.js",
+  "repository": "https://github.com/i4n-v/mycontacts/backend",
   "author": "Ian Vinícius",
   "license": "MIT",
   "scripts": {
