@@ -15,6 +15,7 @@ class ContactController {
     const { id } = request.params;
 
     const contact = await ContactsRepository.findById(id);
+
     if (!contact) {
       return response.status(404).json({ error: 'User not found' });
     }
@@ -33,6 +34,7 @@ class ContactController {
     }
 
     const contactByEmail = await ContactsRepository.findByEmail(email);
+
     if (contactByEmail) {
       return response.status(400).json({ error: 'This e-mail already in use' });
     }
@@ -52,6 +54,7 @@ class ContactController {
     } = request.body;
 
     const contactExists = await ContactsRepository.findById(id);
+
     if (!contactExists) {
       return response.status(404).json({ error: 'User not found' });
     }
@@ -61,6 +64,7 @@ class ContactController {
     }
 
     const contactByEmail = await ContactsRepository.findByEmail(email);
+
     if (contactByEmail && contactByEmail.id !== id) {
       return response.status(400).json({ error: 'This e-mail already in use' });
     }
