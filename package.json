@@ -4,5 +4,8 @@
   "description": "A app to manage contacts",
   "repository": "https://github.com/i4n-v/mycontacts",
   "author": "Ian Vinícius",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/pg": "^8.11.10"
+  }
 }
