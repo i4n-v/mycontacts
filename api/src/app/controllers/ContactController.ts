@@ -1,9 +1,11 @@
-const ContactsRepository = require('../repositories/ContactsRepository');
+import { Request, Response } from 'express';
+import ContactsRepository from '../repositories/ContactsRepository';
+import { IOderBy } from '../../@types/IDatabase';
 
 class ContactController {
   // Lista todos os registros
-  async index(request, response) {
-    const { orderBy } = request.query;
+  async index(request: Request, response: Response) {
+    const { orderBy } = request.query as Record<'orderBy', IOderBy>;
 
     const contacts = await ContactsRepository.findAll(orderBy);
 
@@ -11,7 +13,7 @@ class ContactController {
   }
 
   // Obter um registro
-  async show(request, response) {
+  async show(request: Request, response: Response) {
     const { id } = request.params;
 
     const contact = await ContactsRepository.findById(id);
@@ -24,10 +26,8 @@ class ContactController {
   }
 
   // Criar um novo registro
-  async store(request, response) {
-    const {
-      name, email, phone, category_id,
-    } = request.body;
+  async store(request: Request, response: Response) {
+    const { name, email, phone, category_id } = request.body;
 
     if (!name) {
       return response.status(400).json({ error: 'Name is required' });
@@ -40,18 +40,19 @@ class ContactController {
     }
 
     const contact = await ContactsRepository.create({
-      name, email, phone, category_id,
+      name,
+      email,
+      phone,
+      category_id,
     });
 
     response.json(contact);
   }
 
   // Atualizar um registro
-  async update(request, response) {
+  async update(request: Request, response: Response) {
     const { id } = request.params;
-    const {
-      name, email, phone, category_id,
-    } = request.body;
+    const { name, email, phone, category_id } = request.body;
 
     const contactExists = await ContactsRepository.findById(id);
 
@@ -70,14 +71,17 @@ class ContactController {
     }
 
     const contact = await ContactsRepository.update(id, {
-      name, email, phone, category_id,
+      name,
+      email,
+      phone,
+      category_id,
     });
 
     response.json(contact);
   }
 
   // Deletar um registro
-  async delete(request, response) {
+  async delete(request: Request, response: Response) {
     const { id } = request.params;
 
     const contactExists = await ContactsRepository.findById(id);
@@ -93,4 +97,4 @@ class ContactController {
 }
 
 // Singleton pattern
-module.exports = new ContactController();
+export default new ContactController();
