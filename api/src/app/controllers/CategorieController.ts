@@ -1,15 +1,18 @@
-const CategoriesRepository = require('../repositories/CategoriesRepository');
+import { Request, Response } from 'express';
+import CategoriesRepository from '../repositories/CategoriesRepository';
+import { IOderBy } from '../../@types/IDatabase';
+import { ICategory } from '../../@types/ICategory';
 
 class CategorieController {
-  async index(request, response) {
-    const { orderBy } = request.query;
+  async index(request: Request, response: Response) {
+    const { orderBy } = request.query as Record<'orderBy', IOderBy>;
 
     const categories = await CategoriesRepository.findAll(orderBy);
 
     response.json(categories);
   }
 
-  async show(request, response) {
+  async show(request: Request, response: Response) {
     const { id } = request.params;
 
     const categorie = await CategoriesRepository.findById(id);
@@ -20,8 +23,8 @@ class CategorieController {
     response.json(categorie);
   }
 
-  async store(request, response) {
-    const { name } = request.body;
+  async store(request: Request, response: Response) {
+    const { name } = request.body as Pick<ICategory, 'name'>;
 
     if (!name) {
       return response.status(400).json({ error: 'Name is required' });
@@ -40,9 +43,9 @@ class CategorieController {
     response.json(contact);
   }
 
-  async update(request, response) {
+  async update(request: Request, response: Response) {
     const { id } = request.params;
-    const { name } = request.body;
+    const { name } = request.body as Pick<ICategory, 'name'> as Pick<ICategory, 'name'>;
 
     const categorieExists = await CategoriesRepository.findById(id);
 
@@ -67,7 +70,7 @@ class CategorieController {
     response.json(contact);
   }
 
-  async delete(request, response) {
+  async delete(request: Request, response: Response) {
     const { id } = request.params;
 
     const categorieExists = await CategoriesRepository.findById(id);
@@ -82,4 +85,4 @@ class CategorieController {
   }
 }
 
-module.exports = new CategorieController();
+export default new CategorieController();

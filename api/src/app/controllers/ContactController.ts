@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import ContactsRepository from '../repositories/ContactsRepository';
 import { IOderBy } from '../../@types/IDatabase';
+import { IContact } from '../../@types/IContact';
 
 class ContactController {
   // Lista todos os registros
@@ -27,7 +28,7 @@ class ContactController {
 
   // Criar um novo registro
   async store(request: Request, response: Response) {
-    const { name, email, phone, category_id } = request.body;
+    const { name, email, phone, category_id } = request.body as Omit<IContact, 'id'>;
 
     if (!name) {
       return response.status(400).json({ error: 'Name is required' });
@@ -52,7 +53,7 @@ class ContactController {
   // Atualizar um registro
   async update(request: Request, response: Response) {
     const { id } = request.params;
-    const { name, email, phone, category_id } = request.body;
+    const { name, email, phone, category_id } = request.body as Omit<IContact, 'id'>;
 
     const contactExists = await ContactsRepository.findById(id);
 
