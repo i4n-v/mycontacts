@@ -9,8 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "format": "prettier --check --ignore-path .gitignore .",
-    "format:fix": "prettier --write --ignore-path .gitignore .",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
     "prepare": "cd .. && husky web-app/.husky",
     "postinstall": "yarn prepare"
   },
