@@ -1,7 +1,6 @@
 {
   "./src/**/*.{ts,tsx}": [
     "yarn lint --fix",
-    "yarn format:fix --ignore-unknown",
-    "git add"
+    "yarn format:fix --ignore-unknown"
   ]
 }

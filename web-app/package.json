@@ -11,8 +11,7 @@
     "lint:fix": "eslint --fix .",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "prepare": "cd .. && husky web-app/.husky",
-    "postinstall": "yarn prepare"
+    "prepare": "cd .. && husky web-app/.husky"
   },
   "dependencies": {
     "react": "^19.0.0",
