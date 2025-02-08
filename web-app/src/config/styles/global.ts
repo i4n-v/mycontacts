@@ -10,7 +10,11 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     font-size: 16px;
-    background-color: ${({ theme }) => theme.backgroundColor};
+    background-color: ${({ theme }) => theme.colors.background};
+  }
+
+  a {
+    text-decoration: none;
   }
 
   button {

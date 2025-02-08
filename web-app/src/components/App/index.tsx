@@ -3,6 +3,7 @@ import GlobalStyles from "@/config/styles/global";
 import defaultTheme from "@/config/themes/default";
 import { Container } from "./styles";
 import { Header } from "@/components";
+import ContactsList from "../ContactsList";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <GlobalStyles />
       <Container>
         <Header />
+        <ContactsList />
       </Container>
     </ThemeProvider>
   );

@@ -1,7 +1,7 @@
 import "styled-components";
+import { ITheme } from "../Theme";
 
 declare module "styled-components" {
-  export interface DefaultTheme {
-    backgroundColor: string;
-  }
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  export interface DefaultTheme extends ITheme {}
 }
