@@ -8,9 +8,11 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "prepare": "husky",
-    "postinstall": "husky"
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --check --ignore-path .gitignore .",
+    "format:fix": "prettier --write --ignore-path .gitignore .",
+    "prepare": "cd .. && husky web-app/.husky",
+    "postinstall": "yarn prepare"
   },
   "dependencies": {
     "react": "^19.0.0",
