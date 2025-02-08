@@ -32,7 +32,12 @@ export default tseslint.config(
       },
       "import/resolver": {
         typescript: {
+          alwaysTryTypes: true,
           project: "./tsconfig.json",
+        },
+        alias: {
+          extensions: [".ts", ".tsx"],
+          map: [["@", "./src"]],
         },
       },
     },
@@ -41,7 +46,6 @@ export default tseslint.config(
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "no-console": "warn",
       "react/react-in-jsx-scope": "off",
-      "import/no-unresolved": ["error", { ignore: [".svg"] }],
     },
   },
 );

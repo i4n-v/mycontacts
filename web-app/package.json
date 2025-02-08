@@ -1,7 +1,11 @@
 {
-  "name": "web-app",
-  "private": true,
-  "version": "0.0.0",
+  "name": "mycontacts-web-app",
+  "version": "1.0.0",
+  "description": "A web app to manage your contacts",
+  "main": "dist/index.js",
+  "repository": "https://github.com/i4n-v/mycontacts/web-app",
+  "author": "Ian Vinícius",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,9 +18,11 @@
     "prepare": "cd .. && husky web-app/.husky"
   },
   "dependencies": {
+    "eslint-import-resolver-alias": "^1.1.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "styled-components": "^6.1.15"
+    "styled-components": "^6.1.15",
+    "vite-plugin-svgr": "^4.3.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.7.1",
