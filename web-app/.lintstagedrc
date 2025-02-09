@@ -1,1 +1,6 @@
-{ "./src/**/*.{ts,tsx}": ["yarn lint --fix", "yarn format:fix --ignore-unknown"] }
+{
+  "./src/**/*.{ts,tsx}": [
+    "yarn lint --fix",
+    "yarn format:fix --ignore-unknown"
+  ]
+}

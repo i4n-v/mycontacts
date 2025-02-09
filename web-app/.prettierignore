@@ -1,0 +1,5 @@
+.prettierrc
+.eslint.config.js
+.husky
+.commitlintrc.js
+.lintstagedrc
