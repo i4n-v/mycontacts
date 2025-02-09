@@ -1,14 +1,14 @@
-import js from "@eslint/js";
-import globals from "globals";
-import react from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
-import importPlugin from "eslint-plugin-import";
-import tseslint from "typescript-eslint";
-import prettier from "eslint-plugin-prettier/recommended";
+import js from '@eslint/js';
+import globals from 'globals';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import importPlugin from 'eslint-plugin-import';
+import tseslint from 'typescript-eslint';
+import prettier from 'eslint-plugin-prettier/recommended';
 
 export default tseslint.config(
-  { ignores: ["dist"] },
+  { ignores: ['dist'] },
   {
     extends: [
       js.configs.recommended,
@@ -17,35 +17,38 @@ export default tseslint.config(
       importPlugin.flatConfigs.recommended,
       prettier,
     ],
-    files: ["**/*.{ts,tsx}"],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
     },
     plugins: {
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
     },
     settings: {
       react: {
-        version: "detect",
+        version: 'detect',
       },
-      "import/resolver": {
+      'import/resolver': {
         typescript: {
           alwaysTryTypes: true,
-          project: "./tsconfig.json",
+          project: './tsconfig.json',
         },
         alias: {
-          extensions: [".ts", ".tsx"],
-          map: [["@", "./src"]],
+          extensions: ['.ts', '.tsx'],
+          map: [
+            ['', './public'],
+            ['@', './src'],
+          ],
         },
       },
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
-      "no-console": "warn",
-      "react/react-in-jsx-scope": "off",
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'no-console': 'warn',
+      'react/react-in-jsx-scope': 'off',
     },
   },
 );
