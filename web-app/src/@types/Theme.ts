@@ -13,8 +13,18 @@ interface IColors {
   background: IColor;
 }
 
+interface ITypography {
+  primary: string;
+}
+
+interface IShadow {
+  main: string;
+}
+
 interface ITheme {
   colors: IColors;
+  typography: ITypography;
+  shadows: IShadow;
 }
 
 export type { ITheme };

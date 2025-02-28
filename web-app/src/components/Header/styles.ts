@@ -23,7 +23,7 @@ const InputSearchContainer = styled.div`
     border: none;
     outline: none;
     border-radius: 25px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
+    box-shadow: ${({ theme }) => theme.shadows.main};
     padding: 0 16px;
 
     &::placeholder {

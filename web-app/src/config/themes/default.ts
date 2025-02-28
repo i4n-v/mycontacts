@@ -16,6 +16,12 @@ const defaultTheme: DefaultTheme = {
       dark: '',
     },
   },
+  typography: {
+    primary: "'Sora', sans-serif",
+  },
+  shadows: {
+    main: '0px 4px 10px rgba(0, 0, 0, 0.04)',
+  },
 };
 
 export default defaultTheme;
