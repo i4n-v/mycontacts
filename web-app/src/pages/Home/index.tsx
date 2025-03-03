@@ -1,14 +1,18 @@
-import { Card, Container, Header, ListContainer } from './styles';
+import { Card, Container, Header, InputSearchContainer, ListContainer } from './styles';
 import arrow from '@/assets/icons/arrow.svg';
 import edit from '@/assets/icons/edit.svg';
 import trash from '@/assets/icons/trash.svg';
+import { Link } from 'react-router';
 
-export default function ContactsList() {
+export default function Home() {
   return (
     <Container>
+      <InputSearchContainer>
+        <input type="text" placeholder="Pesquisar contato..." />
+      </InputSearchContainer>
       <Header>
         <strong>3 contatos</strong>
-        <a href="/">Novo Contato</a>
+        <Link to="/new">Novo Contato</Link>
       </Header>
       <ListContainer>
         <header>
@@ -28,9 +32,9 @@ export default function ContactsList() {
               <span>(41) 99999-9999</span>
             </div>
             <div className="actions">
-              <a href="/">
+              <Link to={`/edit/${index}`}>
                 <img src={edit} alt="Edit" />
-              </a>
+              </Link>
               <button type="button">
                 <img src={trash} alt="Delete" />
               </button>
