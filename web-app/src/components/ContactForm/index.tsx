@@ -8,8 +8,8 @@ export default function ContactForm({ buttonLabel }: IContactForm) {
       <FormGroup>
         <Input placeholder="Nome" />
       </FormGroup>
-      <FormGroup>
-        <Input placeholder="E-mail" />
+      <FormGroup error="E-mail inválido.">
+        <Input placeholder="E-mail" error />
       </FormGroup>
       <FormGroup>
         <Input placeholder="Telefone" />

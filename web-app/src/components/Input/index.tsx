@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
+import { IInputProps } from './types';
 
-const Input = styled.input`
-  ${({ theme }) => css`
+const Input = styled.input<IInputProps>`
+  ${({ theme, error }) => css`
     width: 100%;
     height: 52px;
     padding: 0 16px;
@@ -15,6 +16,14 @@ const Input = styled.input`
 
     &:focus {
       border-color: ${theme.colors.primary.main};
+    }
+
+    ${
+      error &&
+      css`
+      color: ${theme.colors.danger.main};
+      border-color: ${theme.colors.danger.main} !important;
+    `
     }
   `};
 `;
