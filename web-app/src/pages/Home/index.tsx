@@ -2,19 +2,11 @@ import { Card, Container, Header, InputSearchContainer, ListContainer } from './
 import arrow from '@/assets/icons/arrow.svg';
 import edit from '@/assets/icons/edit.svg';
 import trash from '@/assets/icons/trash.svg';
-import { Modal } from '@/components';
 import { Link } from 'react-router';
 
 export default function Home() {
   return (
     <Container>
-      <Modal
-        danger
-        title="Teste"
-        description="teste"
-        cancelLabel="Cancelar"
-        confirmLabel="Deletar"
-      />
       <InputSearchContainer>
         <input type="text" placeholder="Pesquisar contato..." />
       </InputSearchContainer>

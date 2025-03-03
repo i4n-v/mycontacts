@@ -25,6 +25,6 @@ export default function Modal({
         </Footer>
       </Container>
     </Overlay>,
-    document.getElementById('modal-root')!,
+    document.getElementById('fullscreen-root')!,
   );
 }
