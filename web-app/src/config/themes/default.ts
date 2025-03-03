@@ -12,8 +12,14 @@ const defaultTheme: DefaultTheme = {
     secondary: {
       lighter: '#FFFFFF',
       light: '#BCBCBC',
-      main: '#222',
-      dark: '',
+      main: '#222222',
+      dark: '#000000',
+    },
+    danger: {
+      lighter: '#FDEDEF',
+      light: '#F97171',
+      main: '#FC5050',
+      dark: '#F63131',
     },
   },
   typography: {

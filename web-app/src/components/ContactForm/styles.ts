@@ -9,6 +9,7 @@ const Form = styled.form`
 
 const FormButton = styled(Button)`
   margin-top: 8px;
+  width: 100%;
 `;
 
 export { Form, FormButton };

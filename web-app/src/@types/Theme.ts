@@ -10,6 +10,7 @@ type IColor = string;
 interface IColors {
   primary: IColorObject;
   secondary: IColorObject;
+  danger: IColorObject;
   background: IColor;
 }
 
