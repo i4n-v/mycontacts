@@ -1,5 +1,7 @@
-interface IContactForm {
+interface IContactFormProps {
   buttonLabel: string;
 }
 
-export type { IContactForm };
+type IContactFormFields = 'name' | 'email';
+
+export type { IContactFormProps, IContactFormFields };
