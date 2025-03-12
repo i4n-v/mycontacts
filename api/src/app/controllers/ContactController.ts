@@ -34,10 +34,12 @@ class ContactController {
       return response.status(400).json({ error: 'Name is required' });
     }
 
-    const contactByEmail = await ContactsRepository.findByEmail(email);
+    if (email) {
+      const contactByEmail = await ContactsRepository.findByEmail(email);
 
-    if (contactByEmail) {
-      return response.status(400).json({ error: 'This e-mail already in use' });
+      if (contactByEmail) {
+        return response.status(400).json({ error: 'This e-mail already in use' });
+      }
     }
 
     const contact = await ContactsRepository.create({
@@ -65,10 +67,12 @@ class ContactController {
       return response.status(400).json({ error: 'Name is required' });
     }
 
-    const contactByEmail = await ContactsRepository.findByEmail(email);
+    if (email) {
+      const contactByEmail = await ContactsRepository.findByEmail(email);
 
-    if (contactByEmail && contactByEmail.id !== id) {
-      return response.status(400).json({ error: 'This e-mail already in use' });
+      if (contactByEmail && contactByEmail.id !== id) {
+        return response.status(400).json({ error: 'This e-mail already in use' });
+      }
     }
 
     const contact = await ContactsRepository.update(id, {

@@ -11,7 +11,7 @@ const client = new Client({
 
 client.connect();
 
-async function query(query: string, values?: Array<string | number>) {
+async function query(query: string, values?: any[]) {
   const { rows } = await client.query(query, values);
   return rows;
 }
