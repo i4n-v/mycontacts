@@ -9,7 +9,7 @@ export default function ContactForm({ buttonLabel }: IContactFormProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [category, setCategory] = useState('instagram');
+  const [category, setCategory] = useState('-');
   const { getErrorMessageByFieldName, addError, removeError, errors } =
     useErrors<IContactFormFields>();
 
@@ -72,6 +72,7 @@ export default function ContactForm({ buttonLabel }: IContactFormProps) {
       </FormGroup>
       <FormGroup>
         <Select value={category} onChange={(event) => setCategory(event.target.value)}>
+          <option value="-">Sem categoria</option>
           <option value="instagram">Instagram</option>
         </Select>
       </FormGroup>

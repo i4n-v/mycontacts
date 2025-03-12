@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { IListContainerProps } from './types';
 
 const Container = styled.div`
   margin-top: 32px;
@@ -31,7 +32,7 @@ const Header = styled.header`
   }
 `;
 
-const ListContainer = styled.div`
+const ListContainer = styled.div<IListContainerProps>`
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -48,6 +49,11 @@ const ListContainer = styled.div`
     span {
       font-weight: 700;
       color: ${({ theme }) => theme.colors.primary.main};
+    }
+
+    img {
+      transition: transform 0.2s ease-in;
+      transform: ${({ orderBy }) => (orderBy === 'asc' ? 'rotate(180deg)' : 'rotate(0deg)')};
     }
   }
 `;
