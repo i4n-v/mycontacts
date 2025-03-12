@@ -2,16 +2,18 @@ import { FormGroup, Input, Select } from '@/components';
 import { Form, FormButton } from './styles';
 import { IContactFormFields, IContactFormProps } from './types';
 import { useState } from 'react';
-import { isEmailValid } from '@/utils';
+import { formatPhone, isEmailValid } from '@/utils';
 import { useErrors } from '@/hooks';
 
 export default function ContactForm({ buttonLabel }: IContactFormProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('instagram');
   const { getErrorMessageByFieldName, addError, removeError, errors } =
     useErrors<IContactFormFields>();
+
+  const isFormValid = name && !errors.length;
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -42,17 +44,18 @@ export default function ContactForm({ buttonLabel }: IContactFormProps) {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} noValidate>
       <FormGroup error={getErrorMessageByFieldName('name')}>
         <Input
           error={!!getErrorMessageByFieldName('name')}
-          placeholder="Nome"
+          placeholder="Nome *"
           value={name}
           onChange={handleNameChange}
         />
       </FormGroup>
       <FormGroup error={getErrorMessageByFieldName('email')}>
         <Input
+          type="email"
           error={!!getErrorMessageByFieldName('email')}
           placeholder="E-mail"
           value={email}
@@ -63,15 +66,16 @@ export default function ContactForm({ buttonLabel }: IContactFormProps) {
         <Input
           placeholder="Telefone"
           value={phone}
-          onChange={(event) => setPhone(event.target.value)}
+          onChange={(event) => setPhone(formatPhone(event.target.value))}
+          maxLength={15}
         />
       </FormGroup>
       <FormGroup>
         <Select value={category} onChange={(event) => setCategory(event.target.value)}>
-          <option value="option1">Instagram</option>
+          <option value="instagram">Instagram</option>
         </Select>
       </FormGroup>
-      <FormButton type="submit" disabled={!!errors.length}>
+      <FormButton type="submit" disabled={!isFormValid}>
         {buttonLabel}
       </FormButton>
     </Form>

@@ -12,6 +12,7 @@ const Select = styled.select`
     background-color: ${theme.colors.secondary.lighter};
     box-shadow: ${theme.shadows.main};
     transition: border-color 0.2s ease-in;
+    appearance: none;
 
     &:focus {
       border-color: ${theme.colors.primary.main};

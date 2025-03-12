@@ -1,3 +1,4 @@
 import isEmailValid from './isEmailValid';
+import formatPhone from './formatPhone';
 
-export { isEmailValid };
+export { isEmailValid, formatPhone };
