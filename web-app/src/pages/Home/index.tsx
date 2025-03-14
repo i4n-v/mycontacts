@@ -8,19 +8,31 @@ import { Link } from 'react-router';
 import { formatPhone } from '@/utils';
 import { IOrderBy } from './types';
 import { useDebounceCallback } from '@/hooks';
+import { Loader } from '@/components';
 
 export default function Home() {
   const [contacts, setContacts] = useState<IContact[]>([]);
   const [orderBy, setOrderBy] = useState<IOrderBy>('asc');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/contacts?orderBy=${orderBy}&name=${searchTerm}`).then(
-      async (response) => {
+    async function loadContacts() {
+      try {
+        setIsLoading(true);
+        const path = `${import.meta.env.VITE_API_URL}/contacts?orderBy=${orderBy}&name=${searchTerm}`;
+        const response = await fetch(path);
         const json = await response.json();
+
         setContacts(json);
-      },
-    );
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadContacts();
   }, [orderBy, searchTerm]);
 
   function handleToggleOrderBy() {
@@ -35,6 +47,7 @@ export default function Home() {
 
   return (
     <Container>
+      <Loader isLoading={isLoading} />
       <InputSearchContainer>
         <input type="text" placeholder="Pesquisar contato..." onChange={handleChangeSearchTerm} />
       </InputSearchContainer>
