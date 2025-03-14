@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import ContactsRepository from '../repositories/ContactsRepository';
-import { IOderBy } from '../../@types/IDatabase';
+import { IContactParams } from '../../@types/IDatabase';
 import { IContact } from '../../@types/IContact';
 
 class ContactController {
   // Lista todos os registros
   async index(request: Request, response: Response) {
-    const { orderBy } = request.query as Record<'orderBy', IOderBy>;
+    const params = request.query as unknown as IContactParams;
 
-    const contacts = await ContactsRepository.findAll(orderBy);
+    const contacts = await ContactsRepository.findAll(params);
 
     response.json(contacts);
   }

@@ -1,3 +1,8 @@
 type IOderBy = 'ASC' | 'DESC';
 
-export { IOderBy };
+interface IContactParams {
+  name?: string;
+  orderBy: IOderBy;
+}
+
+export { IOderBy, IContactParams };

@@ -1,16 +1,22 @@
 import { IContact } from '../../@types/IContact';
-import { IOderBy } from '../../@types/IDatabase';
+import { IContactParams } from '../../@types/IDatabase';
 import db from '../../database';
 
 class ContactsRepository {
-  async findAll(orderBy: IOderBy = 'ASC') {
+  async findAll({ name, orderBy }: IContactParams) {
     const direction = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
-    const rows = await db.query(`
+
+    const rows = await db.query(
+      `
       SELECT contacts.*, categories.name AS category_name
       FROM contacts
       LEFT JOIN categories ON categories.id = contacts.category_id
+      WHERE contacts.name ILIKE CONCAT('%', $1::text, '%')
       ORDER BY contacts.name ${direction}
-    `);
+    `,
+      [name],
+    );
+
     return rows;
   }
 

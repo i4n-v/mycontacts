@@ -7,26 +7,36 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { formatPhone } from '@/utils';
 import { IOrderBy } from './types';
+import { useDebounceCallback } from '@/hooks';
 
 export default function Home() {
   const [contacts, setContacts] = useState<IContact[]>([]);
   const [orderBy, setOrderBy] = useState<IOrderBy>('asc');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/contacts?orderBy=${orderBy}`).then(async (response) => {
-      const json = await response.json();
-      setContacts(json);
-    });
-  }, [orderBy]);
+    fetch(`${import.meta.env.VITE_API_URL}/contacts?orderBy=${orderBy}&name=${searchTerm}`).then(
+      async (response) => {
+        const json = await response.json();
+        setContacts(json);
+      },
+    );
+  }, [orderBy, searchTerm]);
 
   function handleToggleOrderBy() {
     setOrderBy((orderBy) => (orderBy === 'asc' ? 'desc' : 'asc'));
   }
 
+  const handleChangeSearchTerm = useDebounceCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(event.target.value);
+    },
+  );
+
   return (
     <Container>
       <InputSearchContainer>
-        <input type="text" placeholder="Pesquisar contato..." />
+        <input type="text" placeholder="Pesquisar contato..." onChange={handleChangeSearchTerm} />
       </InputSearchContainer>
       <Header>
         <strong>
@@ -35,12 +45,14 @@ export default function Home() {
         <Link to="/new">Novo Contato</Link>
       </Header>
       <ListContainer orderBy={orderBy}>
-        <header>
-          <button type="button" onClick={handleToggleOrderBy}>
-            <span>Nome</span>
-            <img src={arrow} alt="Arrow" />
-          </button>
-        </header>
+        {!!contacts.length && (
+          <header>
+            <button type="button" onClick={handleToggleOrderBy}>
+              <span>Nome</span>
+              <img src={arrow} alt="Arrow" />
+            </button>
+          </header>
+        )}
         {contacts.map((contact) => (
           <Card key={contact.id}>
             <div className="info">

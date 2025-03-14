@@ -49,6 +49,8 @@ export default tseslint.config(
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'no-console': 'warn',
       'react/react-in-jsx-scope': 'off',
+      '@typescript-eslint/no-unsafe-function-type': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 );
