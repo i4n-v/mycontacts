@@ -9,6 +9,7 @@ import { formatPhone } from '@/utils';
 import { IOrderBy } from './types';
 import { useDebounceCallback } from '@/hooks';
 import { Loader } from '@/components';
+import { ContactsService } from '@/services';
 
 export default function Home() {
   const [contacts, setContacts] = useState<IContact[]>([]);
@@ -20,11 +21,13 @@ export default function Home() {
     async function loadContacts() {
       try {
         setIsLoading(true);
-        const path = `${import.meta.env.VITE_API_URL}/contacts?orderBy=${orderBy}&name=${searchTerm}`;
-        const response = await fetch(path);
-        const json = await response.json();
 
-        setContacts(json);
+        const contactsList = await ContactsService.listContacts({
+          name: searchTerm,
+          orderBy,
+        });
+
+        setContacts(contactsList);
       } catch (error) {
         console.log(error);
       } finally {
