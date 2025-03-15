@@ -4,7 +4,6 @@ import { IContactParams } from '../../@types/IDatabase';
 import { IContact } from '../../@types/IContact';
 
 class ContactController {
-  // Lista todos os registros
   async index(request: Request, response: Response) {
     const params = request.query as unknown as IContactParams;
 
@@ -13,20 +12,18 @@ class ContactController {
     response.json(contacts);
   }
 
-  // Obter um registro
   async show(request: Request, response: Response) {
     const { id } = request.params;
 
     const contact = await ContactsRepository.findById(id);
 
     if (!contact) {
-      return response.status(404).json({ error: 'User not found' });
+      return response.status(404).json({ error: 'Contact not found' });
     }
 
     response.json(contact);
   }
 
-  // Criar um novo registro
   async store(request: Request, response: Response) {
     const { name, email, phone, category_id } = request.body as Omit<IContact, 'id'>;
 
@@ -49,10 +46,9 @@ class ContactController {
       category_id,
     });
 
-    response.json(contact);
+    response.status(201).json(contact);
   }
 
-  // Atualizar um registro
   async update(request: Request, response: Response) {
     const { id } = request.params;
     const { name, email, phone, category_id } = request.body as Omit<IContact, 'id'>;
@@ -85,7 +81,6 @@ class ContactController {
     response.json(contact);
   }
 
-  // Deletar um registro
   async delete(request: Request, response: Response) {
     const { id } = request.params;
 
@@ -101,5 +96,4 @@ class ContactController {
   }
 }
 
-// Singleton pattern
 export default new ContactController();

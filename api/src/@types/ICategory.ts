@@ -3,4 +3,4 @@ interface ICategory {
   name: string;
 }
 
-export { ICategory };
+export type { ICategory };

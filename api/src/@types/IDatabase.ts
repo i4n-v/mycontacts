@@ -5,4 +5,4 @@ interface IContactParams {
   orderBy: IOderBy;
 }
 
-export { IOderBy, IContactParams };
+export type { IOderBy, IContactParams };

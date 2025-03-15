@@ -6,4 +6,4 @@ interface IContact {
   category_id?: string;
 }
 
-export { IContact };
+export type { IContact };
