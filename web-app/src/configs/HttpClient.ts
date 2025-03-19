@@ -1,4 +1,5 @@
 import { IQueryParams } from '@/@types/HttpClient';
+import APIError from '@/errors/APIError';
 import { makeURL } from '@/utils';
 
 class HttpClient {
@@ -10,8 +11,18 @@ class HttpClient {
 
   async get<T = any>(url: string, params?: IQueryParams): Promise<T> {
     const response = await fetch(makeURL(this.baseUrl, url, params));
-    const json = await response.json();
-    return json;
+    const contentType = response.headers.get('Content-Type');
+    let body: any = null;
+
+    if (contentType?.includes('application/json')) {
+      body = await response.json();
+    }
+
+    if (response.ok) {
+      return body;
+    }
+
+    throw new APIError(response, body);
   }
 }
 

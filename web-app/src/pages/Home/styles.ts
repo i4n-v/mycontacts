@@ -1,15 +1,17 @@
 import styled, { css } from 'styled-components';
-import { IListContainerProps } from './types';
+import { IHeaderProps, IListContainerProps } from './types';
 
 const Container = styled.div`
   margin-top: 32px;
 `;
 
-const Header = styled.header`
+const Header = styled.header<IHeaderProps>`
   margin-top: 32px;
   display: flex;
-  justify-content: space-between;
+  justify-content: ${({ hasError }) => (hasError ? 'flex-end' : 'space-between')};
   align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #E5E5E5;
 
   & > strong {
     color: ${({ theme }) => theme.colors.secondary.main};
@@ -126,4 +128,25 @@ const InputSearchContainer = styled.div`
   }
 `;
 
-export { Container, Header, ListContainer, Card, InputSearchContainer };
+const ErrorContainer = styled.div`
+  margin-top: 16px;
+  display: grid;
+  align-items: center;
+  justify-items: start;
+  column-gap: 24px;
+  row-gap: 8px;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+
+  img {
+    grid-column: 1;
+    grid-row: 1/-1;
+  }
+
+  strong {
+    font-size: 22px;
+    color: ${({ theme }) => theme.colors.danger.main};
+  }
+`;
+
+export { Container, Header, ListContainer, Card, InputSearchContainer, ErrorContainer };
