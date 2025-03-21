@@ -1,7 +1,9 @@
+import { CSSProperties } from 'styled-components';
+
 type IOrderBy = 'asc' | 'desc';
 
 interface IHeaderProps {
-  hasError: boolean;
+  justifyContent: CSSProperties['justifyContent'];
 }
 
 interface IListContainerProps {

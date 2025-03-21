@@ -8,7 +8,7 @@ const Container = styled.div`
 const Header = styled.header<IHeaderProps>`
   margin-top: 32px;
   display: flex;
-  justify-content: ${({ hasError }) => (hasError ? 'flex-end' : 'space-between')};
+  justify-content: ${({ justifyContent }) => justifyContent};
   align-items: center;
   padding-bottom: 16px;
   border-bottom: 2px solid #E5E5E5;
@@ -149,4 +149,44 @@ const ErrorContainer = styled.div`
   }
 `;
 
-export { Container, Header, ListContainer, Card, InputSearchContainer, ErrorContainer };
+const EmptyListContainer = styled.div`
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  p {
+    color: ${({ theme }) => theme.colors.secondary.light};
+    text-align: center;
+
+    strong {
+      color: ${({ theme }) => theme.colors.primary.main};
+    }
+  }
+`;
+
+const SearchNotFoundContainer = styled.div`
+  margin-top: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+
+  p {
+    color: ${({ theme }) => theme.colors.secondary.light};
+    text-align: center;
+    word-break: break-word;
+  }
+`;
+
+export {
+  Container,
+  Header,
+  ListContainer,
+  Card,
+  InputSearchContainer,
+  ErrorContainer,
+  EmptyListContainer,
+  SearchNotFoundContainer,
+};

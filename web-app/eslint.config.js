@@ -51,6 +51,7 @@ export default tseslint.config(
       'react/react-in-jsx-scope': 'off',
       '@typescript-eslint/no-unsafe-function-type': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
+      'react/no-unescaped-entities': 'off',
     },
   },
 );

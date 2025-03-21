@@ -2,15 +2,17 @@ import { IContact } from '@/@types/Contact';
 import {
   Card,
   Container,
+  EmptyListContainer,
   ErrorContainer,
   Header,
   InputSearchContainer,
   ListContainer,
+  SearchNotFoundContainer,
 } from './styles';
 import arrow from '@/assets/icons/arrow.svg';
 import edit from '@/assets/icons/edit.svg';
 import trash from '@/assets/icons/trash.svg';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { formatPhone } from '@/utils';
 import { IOrderBy } from './types';
@@ -18,6 +20,8 @@ import { useDebounceCallback } from '@/hooks';
 import { Button, Loader } from '@/components';
 import { ContactsService } from '@/services';
 import sad from '@/assets/icons/sad.svg';
+import emptyBox from '@/assets/icons/empty-box.svg';
+import magnifierQuestion from '@/assets/icons/magnifier-question.svg';
 
 export default function Home() {
   const [contacts, setContacts] = useState<IContact[]>([]);
@@ -25,8 +29,9 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [hasContacts, setHasContacts] = useState(false);
 
-  async function loadContacts() {
+  const loadContacts = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -35,6 +40,7 @@ export default function Home() {
         orderBy,
       });
 
+      setHasContacts((hasContacts) => (hasContacts ? hasContacts : !!contactsList.length));
       setHasError(false);
       setContacts(contactsList);
     } catch {
@@ -42,11 +48,11 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [orderBy, searchTerm]);
 
   useEffect(() => {
     loadContacts();
-  }, [orderBy, searchTerm]);
+  }, [loadContacts]);
 
   function handleToggleOrderBy() {
     setOrderBy((orderBy) => (orderBy === 'asc' ? 'desc' : 'asc'));
@@ -65,11 +71,13 @@ export default function Home() {
   return (
     <Container>
       <Loader isLoading={isLoading} />
-      <InputSearchContainer>
-        <input type="text" placeholder="Pesquisar contato..." onChange={handleChangeSearchTerm} />
-      </InputSearchContainer>
-      <Header hasError={hasError}>
-        {!hasError && (
+      {hasContacts && (
+        <InputSearchContainer>
+          <input type="text" placeholder="Pesquisar contato..." onChange={handleChangeSearchTerm} />
+        </InputSearchContainer>
+      )}
+      <Header justifyContent={hasError ? 'flex-end' : hasContacts ? 'space-between' : 'center'}>
+        {!hasError && hasContacts && (
           <strong>
             {contacts.length} {contacts.length === 1 ? 'Contato' : 'Contatos'}
           </strong>
@@ -85,6 +93,23 @@ export default function Home() {
               Tentar Novamente
             </Button>
           </ErrorContainer>
+        )}
+        {!isLoading && !hasContacts && (
+          <EmptyListContainer>
+            <img src={emptyBox} alt="Empty box" />
+            <p>
+              Você ainda não tem nenhum contato cadastrado! Clique no botão
+              <strong>"Novo Contato"</strong> à cima para cadastrar o seu primeiro!
+            </p>
+          </EmptyListContainer>
+        )}
+        {!isLoading && hasContacts && !contacts.length && (
+          <SearchNotFoundContainer>
+            <img src={magnifierQuestion} alt="Magnifier question" />
+            <p>
+              Nenhum resultado foi encontrado para <strong>"{searchTerm}".</strong>
+            </p>
+          </SearchNotFoundContainer>
         )}
         {!hasError && (
           <>
