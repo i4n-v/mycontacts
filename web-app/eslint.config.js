@@ -52,6 +52,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-function-type': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       'react/no-unescaped-entities': 'off',
+      'no-empty': ['error', { allowEmptyCatch: true }],
     },
   },
 );

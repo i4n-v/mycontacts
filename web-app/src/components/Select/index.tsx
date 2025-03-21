@@ -17,6 +17,11 @@ const Select = styled.select`
     &:focus {
       border-color: ${theme.colors.primary.main};
     }
+
+    &:disabled {
+      background: #E5E5E5;
+      border-color: ${theme.colors.secondary.light};
+    }
   `};
 `;
 

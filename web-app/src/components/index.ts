@@ -8,5 +8,18 @@ import ContactForm from './ContactForm';
 import FormGroup from './FormGroup';
 import Modal from './Modal';
 import Loader from './Loader';
+import Spinner from './Spinner';
 
-export { App, Header, PageHeader, Input, Select, Button, ContactForm, FormGroup, Modal, Loader };
+export {
+  App,
+  Header,
+  PageHeader,
+  Input,
+  Select,
+  Button,
+  ContactForm,
+  FormGroup,
+  Modal,
+  Loader,
+  Spinner,
+};
