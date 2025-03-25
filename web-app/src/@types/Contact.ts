@@ -7,4 +7,8 @@ interface IContact {
   category_name?: string;
 }
 
-export type { IContact };
+type IInsertContact = Omit<IContact, 'id' | 'category_name'>;
+
+type IReturnContact = Omit<IContact, 'category_name'>;
+
+export type { IContact, IInsertContact, IReturnContact };

@@ -1,3 +1,10 @@
 type IQueryParams = Record<string, any>;
 
-export type { IQueryParams };
+interface IMakeRequestOptions {
+  method?: 'GET' | 'DELETE' | 'POST' | 'PUT' | 'PATCH';
+  body?: any;
+  params?: IQueryParams;
+  headers?: Record<string, string>;
+}
+
+export type { IQueryParams, IMakeRequestOptions };

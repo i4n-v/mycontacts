@@ -1,7 +1,13 @@
-interface IContactFormProps {
-  buttonLabel: string;
+interface IContactFormValues {
+  name: string;
+  email: string;
+  phone: string;
+  categoryId: string;
 }
 
-type IContactFormFields = 'name' | 'email';
+interface IContactFormProps {
+  buttonLabel: string;
+  onSubmit(values: IContactFormValues): void;
+}
 
-export type { IContactFormProps, IContactFormFields };
+export type { IContactFormValues, IContactFormProps };

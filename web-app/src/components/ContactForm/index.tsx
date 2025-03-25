@@ -1,13 +1,13 @@
 import { FormGroup, Input, Select } from '@/components';
 import { Form, FormButton } from './styles';
-import { IContactFormFields, IContactFormProps } from './types';
+import { IContactFormValues, IContactFormProps } from './types';
 import { useEffect, useState } from 'react';
 import { formatPhone, isEmailValid } from '@/utils';
 import { useErrors } from '@/hooks';
 import { CategoriesService } from '@/services';
 import { ICategory } from '@/@types/Category';
 
-export default function ContactForm({ buttonLabel }: IContactFormProps) {
+export default function ContactForm({ buttonLabel, onSubmit }: IContactFormProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -15,7 +15,7 @@ export default function ContactForm({ buttonLabel }: IContactFormProps) {
   const [isLoadingCategories, setIsLoadingCategories] = useState(true);
   const [categories, setCategories] = useState<ICategory[]>([]);
   const { getErrorMessageByFieldName, addError, removeError, errors } =
-    useErrors<IContactFormFields>();
+    useErrors<keyof IContactFormValues>();
 
   const isFormValid = name && !errors.length;
 
@@ -36,6 +36,7 @@ export default function ContactForm({ buttonLabel }: IContactFormProps) {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    onSubmit({ name, email, phone, categoryId });
   }
 
   function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
