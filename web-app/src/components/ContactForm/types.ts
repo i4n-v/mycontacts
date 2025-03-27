@@ -7,7 +7,7 @@ interface IContactFormValues {
 
 interface IContactFormProps {
   buttonLabel: string;
-  onSubmit(values: IContactFormValues): void;
+  onSubmit(values: IContactFormValues): Promise<void>;
 }
 
 export type { IContactFormValues, IContactFormProps };

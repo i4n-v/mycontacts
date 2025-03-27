@@ -1,5 +1,5 @@
 interface ISpinnerProps {
-  size: number;
+  size?: number;
   className?: string;
 }
 

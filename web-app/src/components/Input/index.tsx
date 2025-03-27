@@ -18,6 +18,12 @@ const Input = styled.input<IInputProps>`
       border-color: ${theme.colors.primary.main};
     }
 
+    &:disabled {
+      background: #E5E5E5;
+      border-color: ${theme.colors.secondary.light};
+      opacity: 0.6;
+    }
+
     ${
       error &&
       css`
