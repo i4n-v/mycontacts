@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import CategoriesRepository from '../repositories/CategoriesRepository';
 import { IOderBy } from '../../@types/IDatabase';
 import { ICategory } from '../../@types/ICategory';
+import { isValidUUID } from '../../utils';
 
 class CategorieController {
   async index(request: Request, response: Response) {
@@ -14,6 +15,10 @@ class CategorieController {
 
   async show(request: Request, response: Response) {
     const { id } = request.params;
+
+    if (!isValidUUID(id)) {
+      return response.status(400).json({ error: 'Invalid category' });
+    }
 
     const categorie = await CategoriesRepository.findById(id);
     if (!categorie) {
@@ -47,6 +52,10 @@ class CategorieController {
     const { id } = request.params;
     const { name } = request.body as Pick<ICategory, 'name'> as Pick<ICategory, 'name'>;
 
+    if (!isValidUUID(id)) {
+      return response.status(400).json({ error: 'Invalid category' });
+    }
+
     const categorieExists = await CategoriesRepository.findById(id);
 
     if (!categorieExists) {
@@ -72,6 +81,10 @@ class CategorieController {
 
   async delete(request: Request, response: Response) {
     const { id } = request.params;
+
+    if (!isValidUUID(id)) {
+      return response.status(400).json({ error: 'Invalid category' });
+    }
 
     const categorieExists = await CategoriesRepository.findById(id);
 
