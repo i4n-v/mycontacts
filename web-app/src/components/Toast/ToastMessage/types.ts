@@ -1,4 +1,4 @@
-type IToastTypes = 'default' | 'danger' | 'success';
+import { IToastTypes } from '../ToastContainer/types';
 
 interface IToastMessageProps {
   type?: IToastTypes;

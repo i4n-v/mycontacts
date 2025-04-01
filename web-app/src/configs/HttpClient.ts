@@ -1,5 +1,5 @@
 import { IMakeRequestOptions, IQueryParams } from '@/@types/HttpClient';
-import APIError from '@/errors/APIError';
+import { APIError } from '@/errors';
 
 class HttpClient {
   baseUrl: string;
