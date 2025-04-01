@@ -21,12 +21,19 @@ const defaultTheme: DefaultTheme = {
       main: '#FC5050',
       dark: '#F63131',
     },
+    success: {
+      lighter: '',
+      light: '',
+      main: '#51CA73',
+      dark: '',
+    },
   },
   typography: {
     primary: "'Sora', sans-serif",
   },
   shadows: {
     main: '0px 4px 10px rgba(0, 0, 0, 0.04)',
+    dark: '0px 4px 10px rgba(0, 0, 0, 0.25)',
   },
 };
 

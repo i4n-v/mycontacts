@@ -11,6 +11,7 @@ interface IColors {
   primary: IColorObject;
   secondary: IColorObject;
   danger: IColorObject;
+  success: IColorObject;
   background: IColor;
 }
 
@@ -20,6 +21,7 @@ interface ITypography {
 
 interface IShadow {
   main: string;
+  dark: string;
 }
 
 interface ITheme {
