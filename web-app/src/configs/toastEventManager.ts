@@ -1,4 +1,4 @@
-import { IToast } from '@/components/Toast/ToastContainer/types';
+import { IToast } from '@/components/Toast/types';
 import { EventManager } from '@/lib';
 
 const toastEventManager = new EventManager<

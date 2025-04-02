@@ -1,10 +1,10 @@
-import { IToastTypes } from '../ToastContainer/types';
+import { IToast } from '../types';
 
 interface IToastMessageProps {
-  type?: IToastTypes;
-  text: string;
+  message: IToast;
+  onRemoveMessage(id: IToast['id']): void;
 }
 
-type IContainerProps = Required<Pick<IToastMessageProps, 'type'>>;
+type IContainerProps = Required<Pick<IToast, 'type'>>;
 
 export type { IToastMessageProps, IContainerProps };
