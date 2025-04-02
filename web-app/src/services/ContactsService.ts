@@ -1,5 +1,6 @@
 import { IContact, IInsertContact, IReturnContact } from '@/@types/Contact';
-import { HttpClient } from '@/configs';
+import { appHttpClient } from '@/configs';
+import { HttpClient } from '@/lib';
 
 interface IListContactsParams {
   orderBy?: string;
@@ -10,7 +11,7 @@ class ContactsService {
   private httpClient: HttpClient;
 
   constructor() {
-    this.httpClient = new HttpClient(import.meta.env.VITE_API_URL);
+    this.httpClient = appHttpClient;
   }
 
   async listContacts(params?: IListContactsParams) {

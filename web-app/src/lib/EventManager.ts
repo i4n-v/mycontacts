@@ -1,34 +1,34 @@
 type IListener = (payload?: any) => void;
 
 export default class EventManager<E extends string, L extends IListener> {
-  listeners: Record<E, L[]>;
+  listeners: Map<E, L[]>;
 
   constructor() {
-    this.listeners = {} as Record<E, L[]>;
+    this.listeners = new Map<E, L[]>();
   }
 
   on(event: E, listener: L) {
-    if (!this.listeners[event]) {
-      this.listeners[event] = [];
+    if (!this.listeners.has(event)) {
+      this.listeners.set(event, []);
     }
 
-    this.listeners[event].push(listener);
+    this.listeners.get(event)!.push(listener);
   }
 
   off(event: E, listenerToRemove: L) {
-    const listeners = this.listeners[event];
+    const listeners = this.listeners.get(event);
 
     if (!listeners) return;
 
     const filteredListeners = listeners.filter((listener) => listener !== listenerToRemove);
 
-    this.listeners[event] = filteredListeners;
+    this.listeners.set(event, filteredListeners);
   }
 
   emit(event: E, payload: Parameters<L>[0]) {
-    if (!this.listeners[event]) return;
+    if (!this.listeners.has(event)) return;
 
-    this.listeners[event].forEach((listener) => {
+    this.listeners.get(event)!.forEach((listener) => {
       listener(payload);
     });
   }

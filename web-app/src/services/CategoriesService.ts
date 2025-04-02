@@ -1,11 +1,12 @@
 import { ICategory } from '@/@types/Category';
-import { HttpClient } from '@/configs';
+import { appHttpClient } from '@/configs';
+import { HttpClient } from '@/lib';
 
 class CategoriesService {
   private httpClient: HttpClient;
 
   constructor() {
-    this.httpClient = new HttpClient(import.meta.env.VITE_API_URL);
+    this.httpClient = appHttpClient;
   }
 
   async listCategories() {

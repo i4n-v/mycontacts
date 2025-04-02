@@ -1,3 +1,4 @@
-import HttpClient from './HttpClient';
+import appHttpClient from './appHttpClient';
+import toastEventManager from './toastEventManager';
 
-export { HttpClient };
+export { toastEventManager, appHttpClient };

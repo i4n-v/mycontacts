@@ -1,9 +1,6 @@
 import { IToast } from '@/components/Toast/ToastContainer/types';
+import { toastEventManager } from '@/configs';
 
 export default function toast(message: Omit<IToast, 'id'>) {
-  const event = new CustomEvent('addtoast', {
-    detail: message,
-  });
-
-  document.dispatchEvent(event);
+  toastEventManager.emit('addtoast', message);
 }
