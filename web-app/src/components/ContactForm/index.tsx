@@ -35,6 +35,13 @@ export default function ContactForm({ buttonLabel, onSubmit }: IContactFormProps
     loadCategories();
   }, []);
 
+  function resetForm() {
+    setName('');
+    setEmail('');
+    setPhone('');
+    setCategoryId('');
+  }
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -48,6 +55,7 @@ export default function ContactForm({ buttonLabel, onSubmit }: IContactFormProps
     });
 
     setIsSubmitting(false);
+    resetForm();
   }
 
   function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {

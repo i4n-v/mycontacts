@@ -9,9 +9,8 @@ class CategoriesService {
     this.httpClient = appHttpClient;
   }
 
-  async listCategories() {
-    const response = await this.httpClient.get<ICategory[]>('/categories');
-    return response;
+  listCategories() {
+    return this.httpClient.get<ICategory[]>('/categories');
   }
 }
 

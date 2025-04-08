@@ -14,14 +14,16 @@ class ContactsService {
     this.httpClient = appHttpClient;
   }
 
-  async listContacts(params?: IListContactsParams) {
-    const response = await this.httpClient.get<IContact[]>('/contacts', { params });
-    return response;
+  getContactById(id: string) {
+    return this.httpClient.get<IContact>(`/contacts/${id}`);
   }
 
-  async createContact(contact: IInsertContact) {
-    const response = await this.httpClient.post<IReturnContact>('/contacts', { body: contact });
-    return response;
+  listContacts(params?: IListContactsParams) {
+    return this.httpClient.get<IContact[]>('/contacts', { params });
+  }
+
+  createContact(contact: IInsertContact) {
+    return this.httpClient.post<IReturnContact>('/contacts', { body: contact });
   }
 }
 
