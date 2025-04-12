@@ -9,6 +9,7 @@ import FormGroup from './FormGroup';
 import Modal from './Modal';
 import Loader from './Loader';
 import Spinner from './Spinner';
+import ReactPortal from './ReactPortal';
 
 export {
   App,
@@ -22,4 +23,5 @@ export {
   Modal,
   Loader,
   Spinner,
+  ReactPortal,
 };
