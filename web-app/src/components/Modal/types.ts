@@ -1,9 +1,15 @@
+import { ReactNode } from 'react';
+
 interface IModalProps {
+  isLoading?: boolean;
+  visible: boolean;
   title: string;
-  description: string;
+  children: ReactNode;
   danger?: boolean;
-  cancelLabel: string;
-  confirmLabel: string;
+  cancelLabel?: string;
+  confirmLabel?: string;
+  onCancel(): void;
+  onConfirm(): void;
 }
 
 export type { IModalProps };

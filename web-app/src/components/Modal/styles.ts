@@ -5,7 +5,7 @@ const Overlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -21,13 +21,13 @@ const Container = styled.div<Pick<IModalProps, 'danger'>>`
   width: 100%;
   max-width: 450px;
 
-  h1 {
+  & > h1 {
     font-size: 22px;
     color: ${({ theme, danger }) => (danger ? theme.colors.danger.main : theme.colors.secondary.dark)};
   }
 
-  p {
-    margin-top: 8px;
+  .modal-body {
+    margin-top: 32px;
   }
 `;
 
@@ -35,7 +35,7 @@ const Footer = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
   margin-top: 32px;
 
   .cancel-button {
@@ -43,6 +43,10 @@ const Footer = styled.div`
     border: none;
     font-size: 16px;
     color: ${({ theme }) => theme.colors.secondary.light};
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 `;
 

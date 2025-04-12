@@ -4,22 +4,28 @@ import { IModalProps } from './types';
 import ReactDOM from 'react-dom';
 
 export default function Modal({
+  visible,
+  isLoading,
   title,
-  description,
+  children,
   danger,
-  cancelLabel,
-  confirmLabel,
+  cancelLabel = 'Cancelar',
+  confirmLabel = 'Confirmar',
+  onCancel,
+  onConfirm,
 }: IModalProps) {
+  if (!visible) return null;
+
   return ReactDOM.createPortal(
     <Overlay>
       <Container danger={danger}>
         <h1>{title}</h1>
-        <p>{description}</p>
+        <div className="modal-body">{children}</div>
         <Footer>
-          <button type="button" className="cancel-button">
+          <button type="button" className="cancel-button" disabled={isLoading} onClick={onCancel}>
             {cancelLabel}
           </button>
-          <Button danger={danger} type="button">
+          <Button isLoading={isLoading} danger={danger} type="button" onClick={onConfirm}>
             {confirmLabel}
           </Button>
         </Footer>

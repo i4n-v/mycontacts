@@ -29,6 +29,10 @@ class ContactsService {
   updateContact(id: string, contact: IInsertContact) {
     return this.httpClient.put<IReturnContact>(`/contacts/${id}`, { body: contact });
   }
+
+  deleteContact(id: string) {
+    return this.httpClient.delete<IReturnContact>(`/contacts/${id}`);
+  }
 }
 
 export default new ContactsService();
