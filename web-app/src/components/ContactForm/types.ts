@@ -1,3 +1,5 @@
+import { IContact } from '@/@types/Contact';
+
 interface IContactFormValues {
   name: string;
   email: string;
@@ -10,4 +12,9 @@ interface IContactFormProps {
   onSubmit(values: IContactFormValues): Promise<void>;
 }
 
-export type { IContactFormValues, IContactFormProps };
+interface IContactFormRef {
+  setFieldsValues(values: IContact): void;
+  resetFields(): void;
+}
+
+export type { IContactFormValues, IContactFormProps, IContactFormRef };

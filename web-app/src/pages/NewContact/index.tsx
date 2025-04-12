@@ -1,9 +1,12 @@
 import { ContactForm, PageHeader } from '@/components';
-import { IContactFormValues } from '@/components/ContactForm/types';
+import { IContactFormRef, IContactFormValues } from '@/components/ContactForm/types';
 import { ContactsService } from '@/services';
 import { toast } from '@/utils';
+import { useRef } from 'react';
 
 export default function NewContact() {
+  const contactFormRef = useRef<IContactFormRef | null>(null);
+
   async function handleSubmit({ categoryId, ...values }: IContactFormValues) {
     try {
       const contact = {
@@ -12,6 +15,10 @@ export default function NewContact() {
       };
 
       await ContactsService.createContact(contact);
+
+      if (contactFormRef.current) {
+        contactFormRef.current.resetFields();
+      }
 
       toast({
         type: 'success',
@@ -28,7 +35,7 @@ export default function NewContact() {
   return (
     <>
       <PageHeader title="Novo Contato" />
-      <ContactForm buttonLabel="Cadastrar" onSubmit={handleSubmit} />
+      <ContactForm ref={contactFormRef} buttonLabel="Cadastrar" onSubmit={handleSubmit} />
     </>
   );
 }
