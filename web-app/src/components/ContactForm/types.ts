@@ -1,11 +1,6 @@
-import { IContact } from '@/@types/Contact';
+import { IContactDomain } from '@/@types/Contact';
 
-interface IContactFormValues {
-  name: string;
-  email: string;
-  phone: string;
-  categoryId: string;
-}
+type IContactFormValues = Omit<IContactDomain, 'id' | 'categoryName'>;
 
 interface IContactFormProps {
   buttonLabel: string;
@@ -13,7 +8,7 @@ interface IContactFormProps {
 }
 
 interface IContactFormRef {
-  setFieldsValues(values: IContact): void;
+  setFieldsValues(values: IContactDomain): void;
   resetFields(): void;
 }
 

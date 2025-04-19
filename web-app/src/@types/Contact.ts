@@ -1,14 +1,18 @@
-interface IContact {
+interface IContactCommon {
   id: string;
   name: string;
   email?: string;
   phone?: string;
+}
+
+interface IContactPersistence extends IContactCommon {
   category_id?: string;
   category_name?: string;
 }
 
-type IInsertContact = Omit<IContact, 'id' | 'category_name'>;
+interface IContactDomain extends IContactCommon {
+  categoryId?: string;
+  categoryName?: string;
+}
 
-type IReturnContact = Omit<IContact, 'category_name'>;
-
-export type { IContact, IInsertContact, IReturnContact };
+export type { IContactPersistence, IContactDomain };

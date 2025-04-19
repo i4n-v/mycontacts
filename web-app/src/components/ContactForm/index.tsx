@@ -5,7 +5,7 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { cleanupString, formatPhone, isEmailValid } from '@/utils';
 import { useErrors } from '@/hooks';
 import { CategoriesService } from '@/services';
-import { ICategory } from '@/@types/Category';
+import { ICategoryDomain } from '@/@types/Category';
 
 const ContactForm = forwardRef<IContactFormRef, IContactFormProps>(
   ({ buttonLabel, onSubmit }, ref) => {
@@ -15,7 +15,7 @@ const ContactForm = forwardRef<IContactFormRef, IContactFormProps>(
     const [categoryId, setCategoryId] = useState('');
     const [isLoadingCategories, setIsLoadingCategories] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [categories, setCategories] = useState<ICategory[]>([]);
+    const [categories, setCategories] = useState<ICategoryDomain[]>([]);
     const { getErrorMessageByFieldName, addError, removeError, errors } =
       useErrors<keyof IContactFormValues>();
 
@@ -28,7 +28,7 @@ const ContactForm = forwardRef<IContactFormRef, IContactFormProps>(
           setName(contact.name);
           setEmail(contact.email ?? '');
           setPhone(contact.phone ? formatPhone(contact.phone) : '');
-          setCategoryId(contact.category_id ?? '');
+          setCategoryId(contact.categoryId ?? '');
         },
         resetFields: () => {
           setName('');

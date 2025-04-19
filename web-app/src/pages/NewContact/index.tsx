@@ -7,13 +7,8 @@ import { useRef } from 'react';
 export default function NewContact() {
   const contactFormRef = useRef<IContactFormRef | null>(null);
 
-  async function handleSubmit({ categoryId, ...values }: IContactFormValues) {
+  async function handleSubmit(contact: IContactFormValues) {
     try {
-      const contact = {
-        ...values,
-        category_id: categoryId,
-      };
-
       await ContactsService.createContact(contact);
 
       if (contactFormRef.current) {

@@ -1,4 +1,4 @@
-import { IContact } from '@/@types/Contact';
+import { IContactDomain } from '@/@types/Contact';
 import {
   Card,
   Container,
@@ -24,7 +24,7 @@ import emptyBox from '@/assets/icons/empty-box.svg';
 import magnifierQuestion from '@/assets/icons/magnifier-question.svg';
 
 export default function Home() {
-  const [contacts, setContacts] = useState<IContact[]>([]);
+  const [contacts, setContacts] = useState<IContactDomain[]>([]);
   const [orderBy, setOrderBy] = useState<IOrderBy>('asc');
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +32,7 @@ export default function Home() {
   const [hasError, setHasError] = useState(false);
   const [hasContacts, setHasContacts] = useState(false);
   const [isDeleteModalVisable, setIsDeleteModalVisible] = useState(false);
-  const [contactBeingDeleted, setContactBeingDeleted] = useState<IContact | null>(null);
+  const [contactBeingDeleted, setContactBeingDeleted] = useState<IContactDomain | null>(null);
 
   const loadContacts = useCallback(async () => {
     try {
@@ -76,7 +76,7 @@ export default function Home() {
     setContactBeingDeleted(null);
   }
 
-  function handleDeleteContact(contact: IContact) {
+  function handleDeleteContact(contact: IContactDomain) {
     setContactBeingDeleted(contact);
     setIsDeleteModalVisible(true);
   }
@@ -177,7 +177,7 @@ export default function Home() {
                 <div className="info">
                   <div className="contact-name">
                     <strong>{contact.name}</strong>
-                    {contact.category_name && <small>{contact.category_name}</small>}
+                    {contact.categoryName && <small>{contact.categoryName}</small>}
                   </div>
                   {contact.email && <span>{contact.email}</span>}
                   {contact.phone && <span>{formatPhone(contact.phone)}</span>}

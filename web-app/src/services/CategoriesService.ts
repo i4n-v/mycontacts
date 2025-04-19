@@ -1,6 +1,7 @@
-import { ICategory } from '@/@types/Category';
+import { ICategoryPersistence } from '@/@types/Category';
 import { appHttpClient } from '@/configs';
 import { HttpClient } from '@/lib';
+import { CategoryMapper } from './mappers';
 
 class CategoriesService {
   private httpClient: HttpClient;
@@ -9,8 +10,10 @@ class CategoriesService {
     this.httpClient = appHttpClient;
   }
 
-  listCategories() {
-    return this.httpClient.get<ICategory[]>('/categories');
+  async listCategories() {
+    const response = await this.httpClient.get<ICategoryPersistence[]>('/categories');
+
+    return response.map(CategoryMapper.toDomain);
   }
 }
 
