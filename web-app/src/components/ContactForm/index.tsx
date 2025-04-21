@@ -1,98 +1,28 @@
 import { FormGroup, Input, Select } from '@/components';
 import { Form, FormButton } from './styles';
-import { IContactFormValues, IContactFormProps, IContactFormRef } from './types';
-import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
-import { cleanupString, formatPhone, isEmailValid } from '@/utils';
-import { useErrors } from '@/hooks';
-import { CategoriesService } from '@/services';
-import { ICategoryDomain } from '@/@types/Category';
+import { IContactFormProps, IContactFormRef } from './types';
+import { forwardRef } from 'react';
+import { formatPhone } from '@/utils';
+import useContactForm from './useContactForm';
 
 const ContactForm = forwardRef<IContactFormRef, IContactFormProps>(
   ({ buttonLabel, onSubmit }, ref) => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [categoryId, setCategoryId] = useState('');
-    const [isLoadingCategories, setIsLoadingCategories] = useState(true);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [categories, setCategories] = useState<ICategoryDomain[]>([]);
-    const { getErrorMessageByFieldName, addError, removeError, errors } =
-      useErrors<keyof IContactFormValues>();
-
-    const isFormValid = name && !errors.length;
-
-    useImperativeHandle(
-      ref,
-      () => ({
-        setFieldsValues: (contact) => {
-          setName(contact.name);
-          setEmail(contact.email ?? '');
-          setPhone(contact.phone ? formatPhone(contact.phone) : '');
-          setCategoryId(contact.categoryId ?? '');
-        },
-        resetFields: () => {
-          setName('');
-          setEmail('');
-          setPhone('');
-          setCategoryId('');
-        },
-      }),
-      [],
-    );
-
-    useEffect(() => {
-      async function loadCategories() {
-        try {
-          setIsLoadingCategories(true);
-          const categories = await CategoriesService.listCategories();
-          setCategories(categories);
-        } catch {
-        } finally {
-          setIsLoadingCategories(false);
-        }
-      }
-
-      loadCategories();
-    }, []);
-
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-      event.preventDefault();
-
-      setIsSubmitting(true);
-
-      await onSubmit({
-        name,
-        email,
-        phone: cleanupString(phone, [/\D/g]),
-        categoryId,
-      });
-
-      setIsSubmitting(false);
-    }
-
-    function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
-      const { value } = event.target;
-
-      if (!value) {
-        addError({ field: 'name', message: 'Nome é obrigatório.' });
-      } else {
-        removeError('name');
-      }
-
-      setName(value);
-    }
-
-    function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
-      const { value } = event.target;
-
-      if (value && !isEmailValid(value)) {
-        addError({ field: 'email', message: 'E-mail inválido.' });
-      } else {
-        removeError('email');
-      }
-
-      setEmail(value);
-    }
+    const {
+      isSubmitting,
+      isLoadingCategories,
+      categories,
+      isFormValid,
+      name,
+      email,
+      phone,
+      categoryId,
+      handleNameChange,
+      handleEmailChange,
+      setPhone,
+      setCategoryId,
+      handleSubmit,
+      getErrorMessageByFieldName,
+    } = useContactForm(ref, onSubmit);
 
     return (
       <Form onSubmit={handleSubmit} noValidate>

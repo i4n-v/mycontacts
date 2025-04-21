@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 interface IFormError<T> {
   field: T;
@@ -8,22 +8,28 @@ interface IFormError<T> {
 export default function useErrors<T = string>() {
   const [errors, setErrors] = useState<IFormError<T>[]>([]);
 
-  function addError(error: IFormError<T>) {
-    const errorAlreadyExists = errors.some((err) => err.field === error.field);
+  const addError = useCallback(
+    (error: IFormError<T>) => {
+      const errorAlreadyExists = errors.some((err) => err.field === error.field);
 
-    if (!errorAlreadyExists) {
-      setErrors((errors) => [...errors, error]);
-    }
-  }
+      if (!errorAlreadyExists) {
+        setErrors((errors) => [...errors, error]);
+      }
+    },
+    [errors],
+  );
 
-  function removeError(fieldName: T) {
+  const removeError = useCallback((fieldName: T) => {
     setErrors((errors) => errors.filter((error) => error.field !== fieldName));
-  }
+  }, []);
 
-  function getErrorMessageByFieldName(fieldName: T) {
-    const error = errors.find((error) => error.field === fieldName);
-    return error?.message;
-  }
+  const getErrorMessageByFieldName = useCallback(
+    (fieldName: T) => {
+      const error = errors.find((error) => error.field === fieldName);
+      return error?.message;
+    },
+    [errors],
+  );
 
   return {
     errors,
