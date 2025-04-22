@@ -12,4 +12,10 @@ interface IModalProps {
   onConfirm(): void;
 }
 
-export type { IModalProps };
+interface IOverlayProps {
+  isLeaving: boolean;
+}
+
+type IContainerProps = Pick<IModalProps, 'danger'> & IOverlayProps;
+
+export type { IModalProps, IOverlayProps, IContainerProps };

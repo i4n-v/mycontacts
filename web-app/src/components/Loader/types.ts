@@ -2,4 +2,8 @@ interface ILoaderProps {
   isLoading: boolean;
 }
 
-export type { ILoaderProps };
+interface IOverlayProps {
+  isLeaving: boolean;
+}
+
+export type { ILoaderProps, IOverlayProps };

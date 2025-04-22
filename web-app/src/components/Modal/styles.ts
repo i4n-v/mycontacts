@@ -1,7 +1,47 @@
-import styled from 'styled-components';
-import { IModalProps } from './types';
+import styled, { css, keyframes } from 'styled-components';
+import { IContainerProps, IOverlayProps } from './types';
 
-const Overlay = styled.div`
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+`;
+
+const scaleIn = keyframes`
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+`;
+
+const scaleOut = keyframes`
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(0);
+  }
+`;
+
+const Overlay = styled.div<IOverlayProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,14 +52,16 @@ const Overlay = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(5px);
-`;
+  animation: ${({ isLeaving }) => css`${isLeaving ? fadeOut : fadeIn} 0.3s forwards`};
+  `;
 
-const Container = styled.div<Pick<IModalProps, 'danger'>>`
+const Container = styled.div<IContainerProps>`
   background: ${({ theme }) => theme.colors.secondary.lighter};
   border-radius: 4px;
   padding: 24px;
   width: 100%;
   max-width: 450px;
+  animation: ${({ isLeaving }) => css`${isLeaving ? scaleOut : scaleIn} 0.3s forwards`};
 
   & > h1 {
     font-size: 22px;
