@@ -1,5 +1,29 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { IContainerProps } from './types';
+
+const messageIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+`;
+
+const messageOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+`;
 
 const containerVariants = {
   default: css`
@@ -23,6 +47,7 @@ const Container = styled.div<IContainerProps>`
   justify-content: center;
   gap: 8px;
   cursor: pointer;
+  animation: ${({ isLeaving }) => css`${isLeaving ? messageOut : messageIn} 0.3s forwards`};
   ${({ type }) => containerVariants[type]}
 `;
 

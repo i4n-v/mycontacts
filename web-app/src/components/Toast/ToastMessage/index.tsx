@@ -2,9 +2,9 @@ import { Container } from './styles';
 import { IToastMessageProps } from './types';
 import xCircle from '@/assets/icons/x-circle.svg';
 import checkCircle from '@/assets/icons/check-circle.svg';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 
-export default function ToastMessage({ message, onRemoveMessage }: IToastMessageProps) {
+function ToastMessage({ animatedRef, message, isLeaving, onRemoveMessage }: IToastMessageProps) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       onRemoveMessage(message.id);
@@ -18,10 +18,19 @@ export default function ToastMessage({ message, onRemoveMessage }: IToastMessage
   }
 
   return (
-    <Container tabIndex={0} role="button" type={message.type} onClick={handleRemoveMessage}>
+    <Container
+      ref={animatedRef}
+      tabIndex={0}
+      role="button"
+      type={message.type}
+      isLeaving={isLeaving}
+      onClick={handleRemoveMessage}
+    >
       {message.type === 'danger' && <img src={xCircle} alt="X" />}
       {message.type === 'success' && <img src={checkCircle} alt="Check" />}
       <strong>{message.text}</strong>
     </Container>
   );
 }
+
+export default memo(ToastMessage);

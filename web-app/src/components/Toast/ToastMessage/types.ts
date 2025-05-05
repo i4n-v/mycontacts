@@ -1,10 +1,16 @@
-import { IToast } from '../types';
+import { RefObject } from 'react';
+import { IToast, IToastTypes } from '../types';
 
 interface IToastMessageProps {
+  animatedRef: RefObject<HTMLDivElement | null>;
   message: IToast;
+  isLeaving: boolean;
   onRemoveMessage(id: IToast['id']): void;
 }
 
-type IContainerProps = Required<Pick<IToast, 'type'>>;
+interface IContainerProps {
+  type: IToastTypes;
+  isLeaving: boolean;
+}
 
 export type { IToastMessageProps, IContainerProps };
