@@ -14,11 +14,13 @@ export default function useEditContact() {
   const safeAsyncAction = useSafeAsyncAction();
 
   useEffect(() => {
+    const abortController = new AbortController();
+
     async function loadContact() {
       try {
         setIsLoading(true);
 
-        const contact = await ContactsService.getContactById(id!);
+        const contact = await ContactsService.getContactById(id!, abortController.signal);
 
         safeAsyncAction(() => {
           if (contactFormRef.current) {
@@ -28,7 +30,11 @@ export default function useEditContact() {
           setContactName(contact.name);
           setIsLoading(false);
         });
-      } catch {
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') {
+          return;
+        }
+
         safeAsyncAction(() => {
           navigate('/');
           toast({
@@ -40,6 +46,10 @@ export default function useEditContact() {
     }
 
     loadContact();
+
+    return () => {
+      abortController.abort();
+    };
   }, [id, navigate, safeAsyncAction]);
 
   async function handleSubmit(contact: IContactFormValues) {

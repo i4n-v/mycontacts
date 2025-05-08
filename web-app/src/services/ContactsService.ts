@@ -15,14 +15,17 @@ class ContactsService {
     this.httpClient = appHttpClient;
   }
 
-  async getContactById(id: string) {
-    const response = await this.httpClient.get<IContactPersistence>(`/contacts/${id}`);
+  async getContactById(id: string, signal?: AbortSignal) {
+    const response = await this.httpClient.get<IContactPersistence>(`/contacts/${id}`, { signal });
 
     return ContactMapper.toDomain(response);
   }
 
-  async listContacts(params?: IListContactsParams) {
-    const response = await this.httpClient.get<IContactPersistence[]>('/contacts', { params });
+  async listContacts(params?: IListContactsParams, signal?: AbortSignal) {
+    const response = await this.httpClient.get<IContactPersistence[]>('/contacts', {
+      params,
+      signal,
+    });
 
     return response.map(ContactMapper.toDomain);
   }

@@ -5,6 +5,7 @@ interface IMakeRequestOptions {
   body?: any;
   params?: IQueryParams;
   headers?: Record<string, string>;
+  signal?: AbortSignal;
 }
 
 export type { IQueryParams, IMakeRequestOptions };

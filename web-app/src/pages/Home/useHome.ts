@@ -16,27 +16,43 @@ export default function useHome() {
   const [isDeleteModalVisable, setIsDeleteModalVisible] = useState(false);
   const [contactBeingDeleted, setContactBeingDeleted] = useState<IContactDomain | null>(null);
 
-  const loadContacts = useCallback(async () => {
-    try {
-      setIsLoading(true);
+  const loadContacts = useCallback(
+    async (signal?: AbortSignal) => {
+      try {
+        setIsLoading(true);
 
-      const contactsList = await ContactsService.listContacts({
-        name: searchTerm,
-        orderBy,
-      });
+        const contactsList = await ContactsService.listContacts(
+          {
+            name: searchTerm,
+            orderBy,
+          },
+          signal,
+        );
 
-      setHasContacts((hasContacts) => (hasContacts ? hasContacts : !!contactsList.length));
-      setHasError(false);
-      setContacts(contactsList);
-    } catch {
-      setHasError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [orderBy, searchTerm]);
+        setHasContacts((hasContacts) => (hasContacts ? hasContacts : !!contactsList.length));
+        setHasError(false);
+        setContacts(contactsList);
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') {
+          return;
+        }
+
+        setHasError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [orderBy, searchTerm],
+  );
 
   useEffect(() => {
-    loadContacts();
+    const abortController = new AbortController();
+
+    loadContacts(abortController.signal);
+
+    return () => {
+      abortController.abort();
+    };
   }, [loadContacts]);
 
   function handleToggleOrderBy() {

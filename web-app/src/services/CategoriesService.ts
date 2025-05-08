@@ -10,8 +10,8 @@ class CategoriesService {
     this.httpClient = appHttpClient;
   }
 
-  async listCategories() {
-    const response = await this.httpClient.get<ICategoryPersistence[]>('/categories');
+  async listCategories(signal?: AbortSignal) {
+    const response = await this.httpClient.get<ICategoryPersistence[]>('/categories', { signal });
 
     return response.map(CategoryMapper.toDomain);
   }

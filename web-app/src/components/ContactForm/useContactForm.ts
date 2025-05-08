@@ -41,10 +41,12 @@ export default function useContactForm(
   );
 
   useEffect(() => {
+    const abortController = new AbortController();
+
     async function loadCategories() {
       try {
         setIsLoadingCategories(true);
-        const categories = await CategoriesService.listCategories();
+        const categories = await CategoriesService.listCategories(abortController.signal);
         setCategories(categories);
       } catch {
       } finally {
@@ -53,6 +55,10 @@ export default function useContactForm(
     }
 
     loadCategories();
+
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
