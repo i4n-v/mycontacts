@@ -7,20 +7,29 @@ env:
     APP_DIR: './web-app'
 
 phases:
+  # Install node 22
   install:
     runtime-versions:
       nodejs: 22
 
+  # Runn commands in pre_build phase
   pre_build:
     commands:
+      # Using file variables
       - cd $APP_DIR
       - npm pkg delete scripts.prepare
       - yarn install --frozen-lockfile
 
+  # Runn commands in build phase
   build:
     commands:
       - yarn build
 
+  # Runn commands in post_build phase
   post_build:
     commands:
-      - echo 'App is builded!'
+      # Sync files from "./dist" in s3 bucket path
+      # Using CodeBuild variables
+      - aws s3 sync --delete ./dist ${S3_BUCKET_URI}
+      # Invalidate cdn cache from s3 bucket files
+      - aws cloudfront create-invalidation --distribution-id ${CLOUD_FRONT_ID} --paths /index.html
