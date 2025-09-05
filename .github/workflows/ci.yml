@@ -36,6 +36,7 @@ jobs:
         with:
           node-version: "18.x"
           cache: "yarn"
+          cache-dependency-path: ./web-app/yarn.lock
 
       - run: npm pkg delete scripts.prepare
 
