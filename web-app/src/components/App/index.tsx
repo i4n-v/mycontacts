@@ -8,6 +8,8 @@ import { BrowserRouter } from 'react-router';
 import Routes from '@/Routes';
 
 function App() {
+  console.log('App');
+
   return (
     <BrowserRouter>
       <ThemeProvider theme={defaultTheme}>
