@@ -1,0 +1,54 @@
+# The name of CI
+name: MyContacts Front-End CI
+
+# The Triggers of CI
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "web-app/**"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "web-app/**"
+
+# These are the actions to be executed
+jobs:
+  # The name of the job
+  ci:
+    # It's the virtual machine that will run the job
+    runs-on: ubuntu-latest
+
+    # The steps that will be executed at this job
+    steps:
+      # the name of the step
+      - name: Checkout code
+        # this is the github action to get the source code
+        uses: actions/checkout@v4
+
+      # the name of the step
+      - name: Use Node.js 18.x
+        # this is the github action to install the node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18.x"
+          cache: "yarn"
+
+      - name: Accessing web-app directory
+        run: cd web-app
+        run: npm pkg delete scripts.prepare
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Linting
+        run: yarn lint
+
+      - name: Code format checking
+        run: yarn format
+
+      - name: Typechecking
+        run: yarn typecheck
+
+      - name: Testing
+        run: yarn test
