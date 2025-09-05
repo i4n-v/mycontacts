@@ -18,6 +18,7 @@ jobs:
   ci:
     # It's the virtual machine that will run the job
     runs-on: ubuntu-latest
+    working-directory: ./web-app
 
     # The steps that will be executed at this job
     steps:
@@ -33,9 +34,6 @@ jobs:
         with:
           node-version: "18.x"
           cache: "yarn"
-
-      - name: Accessing web-app directory
-        run: cd web-app
 
       - run: npm pkg delete scripts.prepare
 
