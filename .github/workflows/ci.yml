@@ -36,7 +36,8 @@ jobs:
 
       - name: Accessing web-app directory
         run: cd web-app
-        run: npm pkg delete scripts.prepare
+
+      - run: npm pkg delete scripts.prepare
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
