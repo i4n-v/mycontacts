@@ -1,0 +1,27 @@
+# Code build version
+version: 0.2
+
+# Define inline environment variables
+env:
+  variables:
+    APP_DIR: "./web-app"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+
+  pre-build:
+    commands:
+      - cd $APP_DIR
+      - npm pkg delete scripts.prepare
+      - yarn install --frozen-lockfile
+
+  build:
+    commands:
+      - cd $APP_DIR
+      - yarn build
+
+  post-build:
+    commands:
+      - cd $APP_DIR

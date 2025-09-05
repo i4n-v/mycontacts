@@ -38,6 +38,7 @@ jobs:
           cache: "yarn"
           cache-dependency-path: ./web-app/yarn.lock
 
+      # The command executed in runner
       - run: npm pkg delete scripts.prepare
 
       - name: Install dependencies
