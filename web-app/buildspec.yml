@@ -19,10 +19,8 @@ phases:
 
   build:
     commands:
-      - cd $APP_DIR
       - yarn build
 
   post_build:
     commands:
-      - cd $APP_DIR
       - echo 'App is builded!'
