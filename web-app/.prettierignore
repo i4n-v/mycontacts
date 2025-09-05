@@ -3,3 +3,4 @@
 .husky
 .commitlintrc.js
 .lintstagedrc
+buildspec.yml
