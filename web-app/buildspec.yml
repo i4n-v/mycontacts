@@ -4,7 +4,7 @@ version: 0.2
 # Define inline environment variables
 env:
   variables:
-    APP_DIR: "./web-app"
+    APP_DIR: './web-app'
 
 phases:
   install:
@@ -25,3 +25,4 @@ phases:
   post-build:
     commands:
       - cd $APP_DIR
+      - echo 'App is builded!'
